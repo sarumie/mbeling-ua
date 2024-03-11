@@ -1,1 +1,1 @@
-# beelingua-auto-solve
+# mbeling(ua)
