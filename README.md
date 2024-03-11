@@ -1,0 +1,1 @@
+# beelingua-auto-solve
