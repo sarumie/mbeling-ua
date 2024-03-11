@@ -1,15 +1,18 @@
 // ==UserScript==
-// @name         Binusmaya Auto Solve
+// @name         mbeling(ua)
 // @version      0.1
-// @author       You
-// @match        https://newbinusmaya.binus.ac.id/beelingua/student/class/93de7666-c200-4bbf-b9af-c0cf9d2af7f1/session/f6276c54-2ca8-4704-92c2-3330cb16992f/content/0c908253-cda5-4888-849b-3a4b45cf5468/BlExercise/115838b8-3722-47ac-9a41-ba0ecd623034
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=ac.id
+// @author       KulkasTerbakar
+// @match        https://newbinusmaya.binus.ac.id/beelingua/*
+// @icon         https://binusmaya.binus.ac.id/favicon.ico
 // @grant        none
+// @updateURL    https://gist.githubusercontent.com/sarumie/6e63c3133e2c7d3ba9f89ea4c9affc77/raw/cffe33031fefcea63ef71d2846798bbc0da5bf8d/mbeling(ua).js
+// @downloadURL  https://gist.githubusercontent.com/sarumie/6e63c3133e2c7d3ba9f89ea4c9affc77/raw/cffe33031fefcea63ef71d2846798bbc0da5bf8d/mbeling(ua).js
+// @description  not stable, only works in objective questions(not multi choice)
 // ==/UserScript==
 
 (function () {
   "use strict";
-
+  // owo
   let exec = null;
   let isStop = false;
 
