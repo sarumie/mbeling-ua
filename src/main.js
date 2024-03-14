@@ -5,8 +5,8 @@
 // @match        https://newbinusmaya.binus.ac.id/beelingua/*
 // @icon         https://binusmaya.binus.ac.id/favicon.ico
 // @grant        none
-// @updateURL    https://gist.githubusercontent.com/sarumie/6e63c3133e2c7d3ba9f89ea4c9affc77/raw/cffe33031fefcea63ef71d2846798bbc0da5bf8d/mbeling(ua).js
-// @downloadURL  https://gist.githubusercontent.com/sarumie/6e63c3133e2c7d3ba9f89ea4c9affc77/raw/cffe33031fefcea63ef71d2846798bbc0da5bf8d/mbeling(ua).js
+// @updateURL    https://github.com/sarumie/mbeling-ua/blob/main/src/main.js
+// @downloadURL  https://github.com/sarumie/mbeling-ua/blob/main/src/main.js
 // @description  not stable, only works in objective questions(not multi choice)
 // ==/UserScript==
 
