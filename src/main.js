@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         mbeling(ua)
-// @version      0.1
+// @version      0.2
 // @author       KulkasTerbakar
 // @match        https://newbinusmaya.binus.ac.id/beelingua/*
 // @icon         https://binusmaya.binus.ac.id/favicon.ico
