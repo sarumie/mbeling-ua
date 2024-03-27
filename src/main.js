@@ -12,9 +12,9 @@
 
 (function () {
   "use strict";
-  // owo
   let exec = null;
   let isStop = false;
+  let btnCheck;
 
   /*
   Declare the start button to exceute the script
@@ -33,25 +33,72 @@
     });
   }
 
-  function stopExec() {
-    isStop = true;
-    btnStart.onclick = start;
-    btnStart.innerHTML = `
+  function checkIsCorrect() {
+    if (
+      document.getElementsByClassName(
+        "bl-col bl-flex-1 bl-m-l-left bl-m-xl-right"
+      )[0].children[0].children[0].innerText == "Correct!"
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function getYellowBtnByInnerText(text) {
+    let btnsYellow = document.getElementsByClassName(
+      "bl-button__container secondary-shade-color "
+    );
+
+    for (let idx = 0; idx < btnsYellow.length; idx++) {
+      const element = btnsYellow[idx];
+
+      if (
+        element.firstElementChild.firstElementChild.firstElementChild
+          .firstElementChild.firstElementChild.innerText == text
+      ) {
+        return element;
+      }
+    }
+
+    // If the all btns not match
+    return false;
+  }
+
+  function setMainBtn(setStatus) {
+    if (setStatus == "start") {
+      btnStart.innerHTML = `
       <div style="padding: 10px; display: flex; align-items: center; justify-content: center; background: blue; color: white; border-radius: 4px;">
         Start
       </div>
     `;
-  }
-
-  async function start() {
-    btnStart.onclick = stopExec;
-    isStop = false;
-
-    btnStart.innerHTML = `
+      btnStart.onclick = start;
+    } else if (setStatus == "stop") {
+      btnStart.innerHTML = `
       <div style="padding: 10px; display: flex; align-items: center; justify-content: center; background: red; color: white; border-radius: 4px;">
         Stop
       </div>
     `;
+      btnStart.onclick = stop;
+    }
+  }
+
+  function goToNextQuestion() {
+    let btnNext = getYellowBtnByInnerText("Next");
+
+    btnNext.click();
+  }
+
+  // Stop the auto solve
+  function stop() {
+    isStop = true;
+    setMainBtn("start");
+  }
+
+  // Start the auto solve
+  async function start() {
+    isStop = false;
+    setMainBtn("stop");
 
     /*
       Elements
@@ -65,36 +112,57 @@
     );
 
     for (let i = 0; i < nodeNavElement.childElementCount; i++) {
-      if (isStop) break;
-      for (let i = 0; i < btnListAns.length; i++) {
-        if (isStop) break;
-        await setDelay(300);
-        let button = btnListAns[i];
-
-        button.click();
-
-        await setDelay(300);
-
-        let btnCheck = document.getElementsByClassName(
-          "bl-button__container secondary-shade-color "
-        )[2];
-        btnCheck.click();
-
-        await setDelay(1000);
-
-        let isCorrect =
-          document.getElementsByClassName(
-            "bl-col bl-flex-1 bl-m-l-left bl-m-xl-right"
-          )[0].children[0].children[0].innerText == "Correct!";
-
-        if (isCorrect) break;
+      // check if stop() executed and check if there is a submit button
+      if (isStop || getYellowBtnByInnerText("Submit")) {
+        stop();
+        break;
       }
 
-      let btnNext = document.getElementsByClassName(
-        "bl-button__container secondary-shade-color "
-      )[2];
+      // check if already correct
+      if (checkIsCorrect()) {
+        goToNextQuestion();
+        continue;
+      }
 
-      btnNext.click();
+      for (let i = 0; i < btnListAns.length; i++) {
+        if (isStop) break;
+
+        await setDelay(300);
+        let btnAnswer = btnListAns[i];
+
+        btnAnswer.click();
+
+        await setDelay(300);
+
+        let btnsYellow = document.getElementsByClassName(
+          "bl-button__container secondary-shade-color "
+        );
+
+        for (let idx = 0; idx < btnsYellow.length; idx++) {
+          const element = btnsYellow[idx];
+
+          btnCheck = getYellowBtnByInnerText("Check");
+
+          if (btnCheck) {
+            // click the check button
+            btnCheck.click();
+            break;
+          }
+
+          // If check button not found
+          if (idx == btnsYellow.length - 1) {
+            goToNextQuestion();
+          }
+        }
+
+        await setDelay(300);
+
+        if (checkIsCorrect()) {
+          break;
+        }
+      }
+
+      goToNextQuestion();
     }
   }
 
