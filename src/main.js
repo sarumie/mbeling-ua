@@ -8,6 +8,7 @@
 // @updateURL    https://github.com/sarumie/mbeling-ua/blob/main/src/main.js
 // @downloadURL  https://github.com/sarumie/mbeling-ua/blob/main/src/main.js
 // @description  not stable, only works in objective questions(not multi choice)
+// @license MIT
 // ==/UserScript==
 
 (function () {
