@@ -11,11 +11,13 @@
 // @license MIT
 // ==/UserScript==
 
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
 (function () {
-  "use strict";
-  let exec = null;
+  ("use strict");
   let isStop = false;
   let btnCheck;
+  let API_KEY = "AIzaSyB1G2skco5T44uampF5KwsydQ_ugV5Cc7c";
 
   /*
   Declare the start button to exceute the script
@@ -28,6 +30,31 @@
   btnStart.style = "position: fixed; bottom: 0; right: 0; z-index: 9999;";
   document.body.appendChild(btnStart);
 
+  // Initialize the generative AI model
+  const genAI = new GoogleGenerativeAI(API_KEY);
+  const scriptElement = document.createElement("script");
+  scriptElement.type = "importmap";
+  scriptElement.textContent = `
+{
+  "imports": {
+    "@google/generative-ai": "https://esm.run/@google/generative-ai"
+  }
+}`;
+  document.body.appendChild(scriptElement);
+
+  async function getAnswer(questionContent) {
+    // For text-only input, use the gemini-pro model
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+    const prompt = `Choose the answer (give me only the alphabet): ${questionContent}`;
+
+    const result = await model.generateContent(prompt);
+    return await result.response.text();
+  }
+
+  /*
+  FUNCTIONS
+  */
   function setDelay(milliseconds) {
     return new Promise((resolve) => {
       setTimeout(resolve, milliseconds);
@@ -166,6 +193,9 @@
       goToNextQuestion();
     }
   }
+  /*
+  END OF FUNCTIONS
+  */
 
   /*
   Execution
